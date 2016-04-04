@@ -12,7 +12,15 @@ deployment:
       - ./node_modules/.bin/hexo clean
       - ./node_modules/.bin/hexo generate
       - ./node_modules/.bin/hexo deploy
+  staging:
+    branch: /.*/
+    commands:
+      - git config --global user.name "Circle CI"
+      - git config --global user.email "fujimoto.ryunosuke@gmail.com"
+      - ./node_modules/.bin/hexo clean
+      - ./node_modules/.bin/hexo generate
+      - ./node_modules/.bin/hexo deploy --baranch $CIRCLE_BRANCH --config _staging_config.yml
 general:
   branches:
-    only:
-      - master
+    ignore:
+      - gh-pages
